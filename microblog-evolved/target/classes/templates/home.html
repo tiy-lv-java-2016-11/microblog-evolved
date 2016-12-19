@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+</head>
+<body>
+    {{#user}}
+    Hello {{user.loginName}}
+    {{/user}}
+
+    <form method="post" action="/add-message">
+        <input type="text" name="message" placeholder="message"/>
+        <input type="submit" value="done"/>
+
+    </form>
+    <p>
+    messages by {{user.loginName}}
+    </p>
+    <ol>
+        {{#user.messages}}
+            <li><a href="/home?id={{id}}">
+                {{message}}
+            </a></li>
+        {{/user.messages}}
+    </ol>
+    <form action="/logout" method="post">
+        <input type="hidden" name="loginName" value="{{user.loginName}}">
+        <button type="submit">Logout</button>
+    </form>
+
+</body>
+</html>
