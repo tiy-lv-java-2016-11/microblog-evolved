@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Messages</title>
+</head>
+<body>
+    <form action="/create-message" method="post">
+        <input type="text" placeholder="Write a message" name="content"/>
+        <button type="submit">Submit</button>
+    </form>
+    <p>
+        Messages by {{user.username}}:
+    </p>
+    <ol>
+        {{#user.messages}}
+        <li><a href="/message?id={{id}}">
+            {{content}}
+        </a></li>
+        {{/user.messages}}
+    </ol>
+    <form action="/logout" method="post">
+        <input type="hidden" name="username" value="{{user.username}}">
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>
