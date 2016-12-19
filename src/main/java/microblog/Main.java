@@ -5,6 +5,7 @@ import spark.Session;
 import spark.Spark;
 import spark.template.mustache.MustacheTemplateEngine;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +19,9 @@ public class Main {
     static Map<String, User> users = new HashMap<>();
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+        User.loadUsers(users);
+
         Spark.init();
 
         /* *
@@ -33,13 +36,13 @@ public class Main {
             User user = users.get(username);
 
             HashMap m = new HashMap();
-            m.put("user", user);
 
             if (user == null){
                 return new ModelAndView(m, "index.html");
             }
             else {
-                return new ModelAndView(m, "messages.html");
+                m.put("user", user);
+                return new ModelAndView(m, "user_messages.html");
             }
         }), new MustacheTemplateEngine());
 
@@ -54,6 +57,11 @@ public class Main {
         Spark.post("/create-user", ((request, response) -> {
             String name = request.queryParams("username");
             String pass = request.queryParams("password");
+
+            if (name.isEmpty() || pass.isEmpty()){
+                response.redirect("/");
+                return "";
+            }
 
             Session session = request.session();
             session.attribute(SESSION_USER_NAME, name);
@@ -91,9 +99,8 @@ public class Main {
             }
 
             String content = request.queryParams("content");
-            int id = Message.getNextId(user.getMessages());
 
-            user.addMessage(new Message(id, content));
+            user.addMessage(new Message(content));
             response.redirect("/");
             return "";
         }));

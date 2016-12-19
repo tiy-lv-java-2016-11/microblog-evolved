@@ -7,7 +7,7 @@ import java.util.List;
  * Created by melmo on 12/14/16.
  */
 public class Message {
-    private int id;
+    private int id = 0;
     private String content;
     private Date createdAt;
 
@@ -25,10 +25,14 @@ public class Message {
         return currentId;
     }
 
-    public Message(int id, String message) {
+    public Message(String content){
+        this.content = content;
+    }
+
+    public Message(int id, Date createdAt, String content) {
         this.id = id;
-        this.content = message;
-        this.createdAt = new Date();
+        this.content = content;
+        this.createdAt = createdAt;
     }
 
     public String getContent() {

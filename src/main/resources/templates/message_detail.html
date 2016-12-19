@@ -7,7 +7,7 @@
 <body>
 
 <p>{{message.content}}</p>
-<p>Created by {{user.username}} at {{message.createdAt}}</p>
+<p>Created by <a href="/user_messages.html?id={{user.id}}">{{user.username}}</a> on {{message.createdAt}}</p>
 <form action="/delete" method="post">
     <input type="hidden" name="id" value="{{message.id}}"/>
     <button type="submit">Delete</button>
@@ -17,6 +17,6 @@
     <input type="text" placeholder="Write a new message" name="content"/>
     <button type="submit">Update</button>
 </form>
-<p><a href="/">Go back to the list of messages</a> </p>
+<!--<p><a href="/">Go back to the list of messages</a></p>-->
 </body>
 </html>
