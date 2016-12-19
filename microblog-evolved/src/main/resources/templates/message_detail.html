@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>detail</title>
+</head>
+<body>
+
+    {{#user}}
+    by : {{user.loginName}}
+    {{/user}}
+    made at {{date}}
+
+<p>{{post.message}}</p>
+
+<form  method="post" action="/delete">
+    <input type="hidden" name="id" value="{{post.id}}"/>
+    <button type="submit">delete</button>
+</form>
+<form  method="post" action="/update_message">
+    <input type="hidden" name="id" value="{{message.id}}"/>
+    <input type="text" placeholder="replace message" name="message">
+    <button type="submit">replace</button>
+</form>
+<p><a href="/">back to messages</a> </p>
+</body>
+</html>
